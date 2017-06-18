@@ -1,0 +1,18 @@
+{% extends "base.twig" %}
+
+{% block title %}{{ app.title }}{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>{{ app.title }}</h1>
+    {{ app.test }}
+    <p class="important">
+      {% for b in blog %}
+      {{ b.id }} {{ b.title }}<br>
+      {% endfor %}
+    </p>
+{% endblock %}

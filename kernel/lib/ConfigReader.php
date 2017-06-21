@@ -4,9 +4,10 @@ require DD . "/kernel/helper.php";
 class Config {
 	public static function get($value) {
 		$e_value = explode('.', $value);
-		$config_file = DD . "/app/config/" . $e_value[0] . ".php";
+		$config_file = DD . "/app/config/" . $e_value[0] . ".yaml";
 		if(file_exists($config_file)) {
-			$config = include $config_file;
+			$yaml_parser = new sfYamlParser;
+			$config = $yaml_parser->parse(file_get_contents($config_file));
 			$slice_value = array_slice($e_value, 1);
 			return _arrayResolver($slice_value, $config);
 		} else {

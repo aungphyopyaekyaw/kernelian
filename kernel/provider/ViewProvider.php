@@ -12,7 +12,7 @@ class View {
 		require_once DD . "/kernel/lib/Twig/Autoloader.php";
 		Twig_Autoloader::register(true);
 		$loader = new Twig_Loader_Filesystem(DD . "/app/view/");
-		$twig = new Twig_Environment($loader/*, array('cache' => DD . "/tmp/cache")*/);
+		$twig = new Twig_Environment($loader, array('cache' => DD . "/tmp/cache"));
 		if(isset($data)){
 			$app = array_merge($data, $app);
 			$template = $twig->loadTemplate($view.".twig");

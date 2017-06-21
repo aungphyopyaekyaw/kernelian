@@ -2,5 +2,4 @@
 blog: 'BlogController@index'
 blog:
     /: 'BlogController@index'
-    create: 'BlogController@func'
-    show: 'BlogController@func'
+    create: 'BlogController@create'

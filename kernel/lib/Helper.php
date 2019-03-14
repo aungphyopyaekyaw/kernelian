@@ -29,8 +29,7 @@ class Route {
 
 		$getfunc = explode('@', $controller);
 		include controller_dir . $getfunc[0] .'.php';
-		call_user_func_array(array(new $getfunc[0], $getfunc[1]), $request_uri);
-		return self;
+		return call_user_func_array(array(new $getfunc[0], $getfunc[1]), $request_uri);
 	}
 
 	public static function make($route) {

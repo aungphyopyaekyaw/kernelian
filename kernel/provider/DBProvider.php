@@ -26,13 +26,15 @@ class DB extends PDO {
         return self::$_instance;
     }
 
-    public function insert() {
+    public function insert($fields) {
         $sql = "INSERT INTO " . $table_name . "(";
         $keys = array_keys($fields);
         $values = array_values($fields);
         $i_keys = implode(",", $keys);
         $i_values = implode('","', $values);
         $sql .= $i_keys . ') VALUES ("' . $i_values . '")';
+	$prep = $this->prepare($sql)->execute();
+        return $prep->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function get() {

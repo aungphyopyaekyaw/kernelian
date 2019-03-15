@@ -6,3 +6,8 @@
 		}
 		return $default_array;
 	}
+
+	function redirect($path) {
+		header('Location: ' . View::getconf()['baseurl'] . $path);
+		exit();
+	}

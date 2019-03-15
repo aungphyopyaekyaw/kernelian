@@ -34,7 +34,6 @@ class DB extends PDO {
         $i_values = implode('","', $values);
         $sql .= $i_keys . ') VALUES ("' . $i_values . '")';
 	$prep = $this->prepare($sql)->execute();
-        return $prep->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function get() {

@@ -1,5 +1,4 @@
 <?php
-require DD . "/kernel/provider/InfoProvider.php";
 require DD . "/kernel/provider/DBProvider.php";
 require DD . "/kernel/provider/ViewProvider.php";
 

@@ -1,13 +1,8 @@
 <?php
 class View {
 
-	public static function getconf() {
-			$appconf = new App;
-			return $appconf->appconf();
-	}
-
 	public static function start($view, &$data = null) {
-		$config = self::getconf();
+		$config = Config::get('app');
 		$app = array('app' => $config);
 		require_once DD . "/kernel/lib/Twig/Autoloader.php";
 		Twig_Autoloader::register(true);

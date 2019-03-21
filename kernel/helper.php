@@ -8,6 +8,6 @@
 	}
 
 	function redirect($path) {
-		header('Location: ' . View::getconf()['baseurl'] . $path);
+		header('Location: ' . Config::get('app.baseurl') . $path);
 		exit();
 	}

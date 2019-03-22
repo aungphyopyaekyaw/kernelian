@@ -69,3 +69,60 @@ class Route {
 		}
 	}
 }
+
+class Validate {
+	private $input;
+	private static $result = TRUE;
+
+	public static function input($value) {
+		foreach($value as $ikey => $ival) {
+			if(empty($ikey)) {
+				return 'Input cannot be empty';
+			}
+			if(strpos($ival, ':') !== FALSE) {
+				$ival = explode(':', $ival);
+				call_user_func('self::'.$ival[0], $ikey, $ival[1]);
+			}
+			call_user_func('self::'.$ival, $ikey);
+		}
+		if(self::$result == 1) {
+			return NULL;
+		}
+		return self::$result;
+	}
+
+	static public function is_difficult($ikey) {
+		if(self::$result === TRUE) {
+			self::$result = (preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/', $ikey)) ? TRUE : 'Not strong enough';
+		}
+		return __CLASS__;
+	}
+
+	static public function is_email($ikey) {
+		if(self::$result === TRUE) {
+			self::$result = (filter_var($ikey, FILTER_VALIDATE_EMAIL)) ? TRUE : 'It is not Email';
+		}
+		return __CLASS__;
+	}
+
+	static public function is_has($ikey, $value) {
+		if(self::$result === TRUE) {
+			$val = explode('|', $value);
+			$var = 0;
+			foreach ($val as $v) {
+				if($v == 'number') {
+					$var += (preg_match('/^(?=.*\d).+$/', $ikey) ? 1 : $message = $v );
+				}
+				if ($v == 'alphabet') {
+					$var += (preg_match('/[a-zA-Z]/', $ikey) ? 1 : $message = $v );
+				}
+				if($v == 'special') {
+					$var += (preg_match('/^(?=.*(_|[^\w])).+$/', $ikey) ? 1 : $message = $v );
+				}
+			}
+			self::$result = (count($val) == $var) ? TRUE : 'It does not have ' . $message;
+		}
+		return __CLASS__;
+	}
+
+}

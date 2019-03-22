@@ -71,7 +71,6 @@ class Route {
 }
 
 class Validate {
-	private $input;
 	private static $result = TRUE;
 
 	public static function input($value) {

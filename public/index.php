@@ -1,15 +1,11 @@
 <?php
-
+session_start();
 define("DD", "..");
 define("controller_dir", "../app/controller/");
+require_once DD."/kernel/lib/yaml/sfYaml.php";
+require_once DD."/kernel/lib/Main.php";
 
-require_once DD . "/kernel/lib/yaml/sfYamlParser.php";
-require_once DD . "/kernel/lib/Helper.php";
-
-$yaml_parser = new sfYamlParser;
-$route = $yaml_parser->parse(file_get_contents(DD . '/app/routes.yaml'));
-
-Route::get($route);
+Route::make(sfYaml::load(DD.'/app/routes.yaml'));
 
 function convert($size)
 {

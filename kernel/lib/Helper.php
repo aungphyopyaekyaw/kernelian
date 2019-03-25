@@ -2,7 +2,10 @@
 require DD . "/kernel/provider/DBProvider.php";
 require DD . "/kernel/provider/ViewProvider.php";
 
-class Helper {
+class Route {
+	
+	private static $_instance;
+
 	public static function gethelp() {
 		$request_uri = $_SERVER['REQUEST_URI'];
 		$script_name = $_SERVER['SCRIPT_NAME'];
@@ -12,16 +15,9 @@ class Helper {
 		$o_request_uri = array_values($request_uri);
 		return $o_request_uri;
 	}
-}
-
-class Route {
-
-	public static function get($route) {
-		self::make($route);
-	}
 
 	public static function get_func($controller) {
-		$request_uri = Helper::gethelp();
+		$request_uri = self::gethelp();
 		if(empty($request_uri)) {
 			$request_uri = array('/');
 		}
@@ -34,7 +30,7 @@ class Route {
 	public static function make($route) {
 		$check_route = $route;
 		$route = array_keys($route);
-		$request_uri = Helper::gethelp();
+		$request_uri = self::gethelp();
 
 		if(empty($request_uri)) {
 			$request_uri = array('/');
@@ -55,6 +51,7 @@ class Route {
 				} else {
 					if(array_key_exists(1, $request_uri)) {
 						echo View::make('404');
+						exit();
 					}
 					else {
 						self::get_func($fixed_controller['/']);
@@ -66,6 +63,7 @@ class Route {
 		}
 		else {
 			echo View::make('404');
+			exit();
 		}
 	}
 }
@@ -81,8 +79,9 @@ class Validate {
 			if(strpos($ival, ':') !== FALSE) {
 				$ival = explode(':', $ival);
 				call_user_func('self::'.$ival[0], $ikey, $ival[1]);
+			} else {
+				call_user_func('self::'.$ival, $ikey);
 			}
-			call_user_func('self::'.$ival, $ikey);
 		}
 		if(self::$result == 1) {
 			return NULL;

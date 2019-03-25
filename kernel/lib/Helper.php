@@ -4,8 +4,6 @@ require DD . "/kernel/provider/ViewProvider.php";
 
 class Route {
 	
-	private static $_instance;
-
 	public static function gethelp() {
 		$request_uri = $_SERVER['REQUEST_URI'];
 		$script_name = $_SERVER['SCRIPT_NAME'];
@@ -69,6 +67,7 @@ class Route {
 }
 
 class Validate {
+	
 	private static $result = TRUE;
 
 	public static function input($value) {

@@ -1,11 +1,11 @@
 <?php
 session_start();
-define("DD", "..");
-define("controller_dir", "../app/controller/");
-require_once DD."/kernel/lib/yaml/sfYaml.php";
-require_once DD."/kernel/lib/Main.php";
 
-Route::make(sfYaml::load(DD.'/app/routes.yaml'));
+define("controller_dir", "../app/controller/");
+require_once "../kernel/lib/yaml/sfYaml.php";
+require_once "../kernel/lib/Main.php";
+
+Route::make(sfYaml::load('../app/routes.yaml'));
 
 function convert($size)
 {

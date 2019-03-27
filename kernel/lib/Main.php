@@ -1,6 +1,6 @@
 <?php
-require DD . "/kernel/provider/DBProvider.php";
-require DD . "/kernel/provider/ViewProvider.php";
+require "../kernel/provider/DBProvider.php";
+require "../kernel/provider/ViewProvider.php";
 
 class Route {
 	

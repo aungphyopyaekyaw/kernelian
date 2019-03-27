@@ -1,5 +1,5 @@
 <?php
-require DD . "/kernel/lib/ConfigReader.php";
+require "../kernel/lib/ConfigReader.php";
 
 class DB extends PDO {
 
@@ -12,9 +12,9 @@ class DB extends PDO {
     private static $_instance;
 
     private $table_name;
-    private $selected = "SELECT ";
+    private $selected;
     private $where;
-	  private $if_select;
+	private $if_select;
     private $if_where = null;
 
     public static function table($table_name) {
@@ -78,6 +78,7 @@ class DB extends PDO {
 	}
 
 	public function toImplode($values) {
+        $this->selected = "SELECT ";
 		$selected_value = implode(", ", $values);
 		$this->selected .= $selected_value;
 		return $this;
@@ -98,12 +99,6 @@ class DB extends PDO {
         $this->pass = Config::get('database.password');
         $dns = $this->engine.':dbname='.$this->database.";host=".$this->host;
         parent::__construct( $dns, $this->user, $this->pass );
-        // echo "Construct! <br />";
-    }
-
-    public function __destruct()
-    {
-        // echo "Destructor <br />";
     }
 
 }

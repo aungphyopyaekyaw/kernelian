@@ -1,10 +1,10 @@
 <?php
-require DD . "/kernel/helper.php";
+require "../kernel/helper.php";
 
 class Config {
 	public static function get($value) {
 		$e_value = explode('.', $value);
-		$config_file = DD . "/app/config/" . $e_value[0] . ".yaml";
+		$config_file = "../app/config/" . $e_value[0] . ".yaml";
 		if(file_exists($config_file)) {
 			$config = sfYaml::load($config_file);
 			$slice_value = array_slice($e_value, 1);

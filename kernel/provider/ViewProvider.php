@@ -4,10 +4,10 @@ class View {
 	public static function start($view, &$data = null) {
 		$config = Config::get('app');
 		$app = array('app' => $config);
-		require_once DD . "/kernel/lib/Twig/Autoloader.php";
+		require_once "../kernel/lib/Twig/Autoloader.php";
 		Twig_Autoloader::register(true);
-		$loader = new Twig_Loader_Filesystem(DD . "/app/view/");
-		$twig = new Twig_Environment($loader, array('cache' => DD . "/tmp/cache"));
+		$loader = new Twig_Loader_Filesystem("../app/view/");
+		$twig = new Twig_Environment($loader, array('cache' => "../tmp/cache"));
 		if(isset($data)){
 			$app = array_merge($data, $app);
 			$template = $twig->loadTemplate($view.".twig");
@@ -18,7 +18,7 @@ class View {
 	}
 
 	public static function make($view, $data = null) {
-		$file =  DD . "/app/view/" . $view . ".php";
+		$file =  "../app/view/" . $view . ".php";
 		if(file_exists($file)) {
 			ob_start();
 			if($data != null) {
@@ -27,7 +27,7 @@ class View {
 			include $file;
 			return ob_get_clean();
 			} else {
-			$f404 = DD . "/app/view/404.php";
+			$f404 = "../app/view/404.php";
 			ob_start();
 			if($data != null) {
 			extract($data); // to change array_key to variable
